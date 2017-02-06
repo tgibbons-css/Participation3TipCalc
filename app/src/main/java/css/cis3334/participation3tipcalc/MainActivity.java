@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
     EditText etNumParty;
     TextView tvTotalTip;
     TextView tvTipPerPerson;
+    TipCalculatorInterface tipCalc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,15 +24,15 @@ public class MainActivity extends AppCompatActivity {
         etNumParty = (EditText) findViewById(R.id.editTextNumParty);
         tvTotalTip = (TextView) findViewById(R.id.textViewTotalTip);
         tvTipPerPerson = (TextView) findViewById(R.id.textViewTipPerPerson);
-
+        tipCalc = new TipCalculator();
     }
 
     public void onClickCalcButton(View view) {
-        Double bill = Double.parseDouble( etBill.getText());
-        Double numPeple = Double.parseDouble( etNumParty.getText());
-        Double totTip = bill * 0.1;
-        Double tipPerPerson = totTip / numPeple;
-        tvTotalTip.setText("Total tip: " + totTip.toString());
-        tvTipPerPerson.setText("Total tip: " + tipPerPerson.toString());
+        Double bill = Double.parseDouble( etBill.getText().toString());
+        Integer numPeople = Integer.parseInt( etNumParty.getText().toString());
+
+
+        tvTotalTip.setText("Total tip: " + tipCalc.calcTotalTip(bill).toString());
+        tvTipPerPerson.setText("Total tip: " + tipCalc.calcTipPerPerson(bill, numPeople));
     }
 }
